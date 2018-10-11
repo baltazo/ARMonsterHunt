@@ -7,11 +7,16 @@ using UnityEngine.UI;
 public class ColorPicker : MonoBehaviour {
 
     public Image colorScanned; // This is temporary, to find which color has been scanned
-    public int minutesToNewScan;
+    public float secondsToClearScan;
+    public float averageTreshold = 0.05f;
+    public Text colorStatusText; // Temporary text to give the status of the recent color
+    public GameObject summonPanel;
+    public Text summonedMonsterText;
+    public float chanceToGetAMonster;
+
 
     private List<Color> recentColors = new List<Color>();
-    private TimeSpan _startTime;
-    private TimeSpan _endTime;
+    
 
     public void GetColor()
     {
@@ -39,6 +44,8 @@ public class ColorPicker : MonoBehaviour {
 
         CheckTimeSinceFirstScan();
 
+        Debug.Log("RecentColor count: " + recentColors.Count);
+
         if (recentColors.Count != 0)
         {
             foreach (Color color in recentColors) // This checks the scanned color against the recently scanned ones by substracting each color and checking if the difference is greater than 0.015f
@@ -51,8 +58,9 @@ public class ColorPicker : MonoBehaviour {
 
                 Debug.Log("Average is " + average);
 
-                if(average < 0.015)
+                if(average < averageTreshold)
                 {
+                    colorStatusText.text = "Color already scanned";
                     Debug.Log("Color too similar to a previously scanned color");
                     return;
                 }
@@ -61,42 +69,69 @@ public class ColorPicker : MonoBehaviour {
 
         Debug.Log("It is a new Color! Summon a monster or an item and add to the recen color list");
         recentColors.Add(scannedColor);
-        
+        colorStatusText.text = "New color! Added to list";
+        PlayerPrefs.SetFloat("_recordedColorR", scannedColor.r);
+        PlayerPrefs.SetFloat("_recordedColorG", scannedColor.g);
+        PlayerPrefs.SetFloat("_recordedColorB", scannedColor.b);
+        GetScanReward(scannedColor);
     }
 
-    //Setting up and configuring values
-    //Update the time info from the internet
-    private void CheckTimeSinceFirstScan()
+    private void GetScanReward(Color scannedColor)
     {
-        int _now = TimeManager.sharedInstance.GetCurrentDateNow();
-
-        if (PlayerPrefs.GetInt("_colorDate") != _now)
-        { // If the last recorded dat isn't today, assume at least a day passed and clear the list
-            recentColors.Clear();
-            recentColors.TrimExcess();
-            PlayerPrefs.SetInt("_colorDate", _now);
-            return;
-        }
-
-        // If a day didn't pass, check how long it has been since first scan, if longer than X minutes, clear the list
-        if (PlayerPrefs.HasKey("_colorTimer"))
+        if(UnityEngine.Random.Range(0, 1f) <= chanceToGetAMonster)
         {
-            _startTime = TimeSpan.Parse(PlayerPrefs.GetString("_colorTimer"));
-            _endTime = TimeSpan.Parse(0 + ":" + minutesToNewScan + ":" + 0);
-            TimeSpan temp = TimeSpan.Parse(TimeManager.sharedInstance.GetCurrentTime());
-            TimeSpan diff = temp.Subtract(_startTime);
-
-            if (diff >= _endTime)
-            {
-                recentColors.Clear();
-                Debug.Log(minutesToNewScan + " minutes have passed, clearing list");
-                PlayerPrefs.SetString("_colorTimer", TimeManager.sharedInstance.GetCurrentTime());
-            }
+            //Get a monster
+            GameObject monsterSummoned = MonsterCollector.sharedInstance.MonsterChooser(scannedColor);
+            summonedMonsterText.text = monsterSummoned.name;
+            summonPanel.SetActive(true);
         }
         else
         {
-            PlayerPrefs.SetString("_colorTimer", TimeManager.sharedInstance.GetCurrentTime());
+            // Get an item
         }
-        
+    }
+
+    private void CheckTimeSinceFirstScan()
+    {
+        if (!PlayerPrefs.HasKey("_colorTimer")) //If this is the first time, record the time and stop there.
+        {
+            Debug.Log("==> This is the first time recording a color");
+            PlayerPrefs.SetFloat("_colorTimer", Time.realtimeSinceStartup);
+            return;
+        }
+
+        if(PlayerPrefs.GetFloat("_colortimer") > Time.realtimeSinceStartup) // If the recorded time is higher the the current time, it means the game has restarted, so record again and stop there
+        {
+            Debug.Log("The recorded time is bigger than the actual time, set a new time");
+            PlayerPrefs.SetFloat("_colorTimer", Time.realtimeSinceStartup);
+            return;
+        }
+
+        float currentTime = Time.realtimeSinceStartup;
+
+        if(currentTime - PlayerPrefs.GetFloat("_colorTimer") >= secondsToClearScan) // If more time has passed than the secondsToClearScan, clear the list and set a new time
+        {
+            Debug.Log("It has been more than " + secondsToClearScan + " seconds since first scan, clearing list");
+            recentColors.Clear();
+            PlayerPrefs.SetFloat("_colorTimer", currentTime);
+            return;
+        }
+
+        if(recentColors.Count == 0) // It has not been 5 minutes, but the list is empty. Add the last recorded color.
+        {
+            Debug.Log("It has been less than 5 minutes, but the list is empty. Adding the last recorded color");
+            float r = PlayerPrefs.GetFloat("_recordedColorR");
+            float g = PlayerPrefs.GetFloat("_recordedColorG");
+            float b = PlayerPrefs.GetFloat("_recordedColorB");
+
+            Color lastRecordedColor = new Color(r, g, b, 1f);
+            recentColors.Add(lastRecordedColor);
+        }
+        Debug.Log("The recent color list is still active");
+    }
+
+    public void ScanAgain()
+    {
+        summonPanel.SetActive(false);
     }
 }

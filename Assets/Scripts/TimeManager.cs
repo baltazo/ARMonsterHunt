@@ -18,13 +18,12 @@ public class TimeManager : MonoBehaviour {
         if(sharedInstance == null)
         {
             sharedInstance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else if(sharedInstance != this)
         {
             Destroy(gameObject);
         }
-
-        DontDestroyOnLoad(gameObject);
     }
 
     //time fether coroutine

@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1272066929910270}
+  m_IsPrefabAsset: 1
+--- !u!1 &1272066929910270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4832630809812286}
+  - component: {fileID: 114023995183386130}
+  m_Layer: 0
+  m_Name: MonsterCollector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4832630809812286
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272066929910270}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114023995183386130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272066929910270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0177b12a57142e48b2af88deaa895f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackMonsters:
+  - {fileID: 1806861035024470, guid: 6484a90f236347842b61146999f7e2ca, type: 2}
+  whiteMonsters:
+  - {fileID: 1216235943304186, guid: c69413341eeb8a24c995f5f05ddb8a0b, type: 2}
+  redMonsters:
+  - {fileID: 1220367692324210, guid: 250a252cc2915f94c93b15f66da9d60b, type: 2}
+  blueMonsters:
+  - {fileID: 1013502933687390, guid: 859d93046979a254c8dde9f679f2a20e, type: 2}
+  greenMonsters:
+  - {fileID: 1392699077406502, guid: 6f573c56cabf3c34c8c446196dc11a31, type: 2}
+  yellowMonsters:
+  - {fileID: 1462280703444166, guid: 6a233601c02cd7947a41661af2aa7d27, type: 2}
+  purpleMonsters:
+  - {fileID: 1353251209129778, guid: 92d1a505011cde44d98ee68eb114a65d, type: 2}
+  aquaMonsters:
+  - {fileID: 1810898909529084, guid: 731d294208569fc4aa044a0bc65ac9a7, type: 2}
+  greyMonsters:
+  - {fileID: 1075157537944108, guid: fa4a8b2aa8703af4fa35ad2023840559, type: 2}
+  unlockedMonsters: []

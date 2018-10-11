@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class BackButton : MonoBehaviour {
 
-    private GameController gameController;
+    //private GameController gameController;
 
 	void Start () {
-        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        //gameController = GameObject.Find("GameController").GetComponent<GameController>();
 	}
 	
 	public void BackToRanch()
     {
-        gameController.ChangeScene("Ranch");
+        //gameController.ChangeScene("Ranch");
+        GameController.sharedInstance.ChangeScene("Ranch");
     }
 }

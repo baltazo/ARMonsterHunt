@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class GameController : MonoBehaviour {
 
-    public static List<GameObject> unlockedMonsters; // The list that stores all the unlocked monsters
-    private static bool created = false;
+    public static GameController sharedInstance = null;
 
     private void Awake()
     {
-        if (!created)
+        if (sharedInstance == null)
         {
-            DontDestroyOnLoad(this.gameObject);
-            created = true;
+            sharedInstance = this;
+            DontDestroyOnLoad(gameObject);
         }
+        else if (sharedInstance != this)
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     private void Update()
