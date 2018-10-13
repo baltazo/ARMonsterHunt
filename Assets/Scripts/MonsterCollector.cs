@@ -225,7 +225,11 @@ public class MonsterCollector : MonoBehaviour {
 
         while (monsterPrefabsList.ContainsKey(monster.name)) //Updates the monster name so that there are no monsters with the same name
         {
-            name = monster.name + 001;
+            int variation = 001;
+            string monsterName = monster.name + variation;
+            
+            name = monsterName;
+            variation += 001;
         }
 
         string prefabName = monster.name;
