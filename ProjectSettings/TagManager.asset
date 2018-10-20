@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Nav
+  - Collection
   layers:
   - Default
   - TransparentFX

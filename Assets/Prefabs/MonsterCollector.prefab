@@ -69,4 +69,13 @@ MonoBehaviour:
   - {fileID: 1810898909529084, guid: 731d294208569fc4aa044a0bc65ac9a7, type: 2}
   greyMonsters:
   - {fileID: 1075157537944108, guid: fa4a8b2aa8703af4fa35ad2023840559, type: 2}
-  unlockedMonsters: []
+  monstersImages:
+  - {fileID: 21300000, guid: 6e42522b75aa8b646bb746f00c4922a5, type: 3}
+  - {fileID: 21300000, guid: 7fd2f736a2d125d45990093396e16180, type: 3}
+  - {fileID: 21300000, guid: b8aad80d1c4f9554fa316115d1946401, type: 3}
+  - {fileID: 21300000, guid: 950f2b6d61f22e1459cac045f5593479, type: 3}
+  - {fileID: 21300000, guid: 528c44ee2f3aa264788693ba0aba8c31, type: 3}
+  - {fileID: 21300000, guid: 25a1c6250ed24fa499dc49897908cc40, type: 3}
+  - {fileID: 21300000, guid: 05403ea212624b141b100938e9f8a994, type: 3}
+  - {fileID: 21300000, guid: 1fe5b09816778cb4a9c2ae861a7eaddd, type: 3}
+  - {fileID: 21300000, guid: 8a61c17d4e2cb81438ca537485e181fc, type: 3}

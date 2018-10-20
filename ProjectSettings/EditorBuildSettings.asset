@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ColorHunt.unity
     guid: 8dfe751b8b779f444911276531ce5d3e
+  - enabled: 1
+    path: Assets/Scenes/MonsterViz.unity
+    guid: 15d640ef104c85544a5b3a89f7589224
   m_configObjects: {}

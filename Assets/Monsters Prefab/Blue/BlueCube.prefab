@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33552495506376356}
   - component: {fileID: 23916069668111004}
   - component: {fileID: 65966984277977568}
-  - component: {fileID: 114223251699450572}
+  - component: {fileID: 114974593920458766}
   m_Layer: 0
   m_Name: BlueCube
   m_TagString: Untagged
@@ -97,7 +97,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114223251699450572
+--- !u!114 &114974593920458766
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,10 +105,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013502933687390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34829e4485a4a0a4b8d842b43901e3ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 051c8c92eb26c594c9a88d4e6092dc4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strenght: 10
-  intelligence: 10
-  life: 10
-  startingpoints: 100
+  monsterName: 
+  strength: 0
+  intelligence: 0
+  life: 0
