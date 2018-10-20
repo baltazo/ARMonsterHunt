@@ -33,6 +33,7 @@ public class MonsterData
 
 public class MonsterCollector : MonoBehaviour {
 
+
     public static MonsterCollector sharedInstance = null;
 
     public GameObject[] blackMonsters;
@@ -67,16 +68,9 @@ public class MonsterCollector : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-    }
 
-    private void OnEnable() 
-    {
         LoadList();
-        foreach (string monster in unlockedMonsters.Keys)
-        {
-            Debug.Log("Monster name: " + unlockedMonsters[monster].Name);
-            Debug.Log("Monster prefabName: " + unlockedMonsters[monster].PrefabName);
-        }
+
     }
 
     private void Start()
@@ -115,31 +109,52 @@ public class MonsterCollector : MonoBehaviour {
 
     public void LoadList()
     {
-        if(File.Exists(Application.persistentDataPath + "/monsters.data"))
+
+        if(File.Exists(Application.persistentDataPath + Path.DirectorySeparatorChar + "monsters.data"))
         {
+
+            Debug.Log("Loading List");
+
             BinaryFormatter bf = new BinaryFormatter();
+            Debug.Log(bf);
             FileStream file = File.Open(Application.persistentDataPath + "/monsters.data", FileMode.Open);
+            Debug.Log(file);
 
             MonsterData data = (MonsterData)bf.Deserialize(file);
+            Debug.Log(data);
             file.Close();
 
             unlockedMonsters = data.unlockedMonsters;
+
+            foreach (Monster monster in unlockedMonsters.Values)
+            {
+                Debug.Log("Loading " + monster.Name);
+            }
+
         }
     }
 
-    private void OnDisable()
+    /*private void OnDisable()
     {
         SaveList();
-    }
+    }*/
 
     public void SaveList()
     {
 
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.persistentDataPath + "/monsters.data", FileMode.OpenOrCreate);
+        Debug.Log("Saving List");
 
+        BinaryFormatter bf = new BinaryFormatter();
+        Debug.Log(bf);
+        FileStream file = File.Open(Application.persistentDataPath + Path.DirectorySeparatorChar + "monsters.data", FileMode.OpenOrCreate);
+        Debug.Log(file);
         MonsterData data = new MonsterData();
         data.unlockedMonsters = unlockedMonsters;
+        Debug.Log(data);
+        foreach (Monster monster in data.unlockedMonsters.Values)
+        {
+            Debug.Log("Saving " + monster.Name);
+        }
 
         bf.Serialize(file, data);
         file.Close();
@@ -261,9 +276,8 @@ public class MonsterCollector : MonoBehaviour {
 
         unlockedMonsters.Add(newMonster.Name, newMonster);
 
-
-
         UpdateDictionnary(newMonster, monster);
+        SaveList();
 
     }
 

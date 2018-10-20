@@ -1655,6 +1655,11 @@ Prefab:
       propertyPath: monsterInfo
       value: 
       objectReference: {fileID: 2139823086}
+    - target: {fileID: 114007194840581892, guid: 7d851d8d932f4aa43be17be45bff2adc,
+        type: 2}
+      propertyPath: debugText
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d851d8d932f4aa43be17be45bff2adc, type: 2}
   m_IsPrefabAsset: 0

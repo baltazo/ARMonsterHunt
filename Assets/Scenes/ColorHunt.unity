@@ -382,6 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameInput: {fileID: 1562995405}
+  inputField: {fileID: 1562995402}
 --- !u!114 &121600167
 MonoBehaviour:
   m_ObjectHideFlags: 0
