@@ -22,6 +22,9 @@ public class Inventory : MonoBehaviour {
     public int[] inventoryPieces = new int[3];
     public int[] inventoryItems = new int[3];
 
+    public Sprite[] itemImages;
+
+
     private void Awake()
     {
         if (sharedInstance == null)
@@ -33,6 +36,8 @@ public class Inventory : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+
+        LoadIntentory();
     }
 
     private void LoadIntentory()
@@ -50,7 +55,7 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    private void SaveInventory()
+    public void SaveInventory()
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.persistentDataPath + Path.DirectorySeparatorChar + "inventory.data", FileMode.OpenOrCreate);
@@ -70,20 +75,23 @@ public class Inventory : MonoBehaviour {
 
         if (category == 0) // Category 0 is the strength item
         {
-            messageToReturn = "You found a Punching Bag piece!";
+            messageToReturn = "You found a Strength piece!";
             inventoryPieces[category]++;
+            SaveInventory();
             return messageToReturn;
         }
         else if (category == 1) // Category 1 is the intelligence item
         {
-            messageToReturn = "You found a Book piece!";
+            messageToReturn = "You found an Intelligence piece!";
             inventoryPieces[category]++;
+            SaveInventory();
             return messageToReturn;
         }
         else // Category 2 is the intelligence item
         {
-            messageToReturn = "You found a Food piece!";
+            messageToReturn = "You found a Life piece!";
             inventoryPieces[category]++;
+            SaveInventory();
             return messageToReturn;
         }
 

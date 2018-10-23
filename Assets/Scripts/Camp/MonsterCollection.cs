@@ -58,7 +58,7 @@ public class MonsterCollection : MonoBehaviour {
                 }
             }
             float numberOfMonsters = MonsterCollector.sharedInstance.unlockedMonsters.Count + 0.2f;
-            float heightOfList = Mathf.Round(numberOfMonsters / 2) * 650f;
+            float heightOfList = Mathf.Round(numberOfMonsters / 2) * 600f;
 
             Debug.Log("numberOfMonsters: " + numberOfMonsters);
             Debug.Log("heightOfList:" + heightOfList);

@@ -111,8 +111,9 @@ public class ColorPicker : MonoBehaviour {
         else
         {
             // Get an item
-            int category = Unity.Random.Range(0, 2);
-            string message = Inventory.sharedInstance.InventoryChoser(category);
+            int category = UnityEngine.Random.Range(0, 3);
+            Debug.Log("Category is " + category);
+            string message = Inventory.sharedInstance.InventoryChooser(category);
             itemText.text = message;
             itemImage.sprite = Inventory.sharedInstance.itemImages[category];
             itemPanel.SetActive(true);
