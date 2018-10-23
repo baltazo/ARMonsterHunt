@@ -18,6 +18,10 @@ public class ColorPicker : MonoBehaviour {
     public Image summonedMonsterImage;
     public GameObject inputField;
     public Text monsterNameText;
+    
+    public GameObject itemPanel;
+    public Text itemText;
+    public Image itemImage;
 
     private Sprite monsterImage;
     private List<Color> recentColors = new List<Color>();
@@ -107,6 +111,11 @@ public class ColorPicker : MonoBehaviour {
         else
         {
             // Get an item
+            int category = Unity.Random.Range(0, 2);
+            string message = Inventory.sharedInstance.InventoryChoser(category);
+            itemText.text = message;
+            itemImage.sprite = Inventory.sharedInstance.itemImages[category];
+            itemPanel.SetActive(true);
         }
     }
 
@@ -160,5 +169,6 @@ public class ColorPicker : MonoBehaviour {
     public void ScanAgain()
     {
         summonPanel.SetActive(false);
+        itemPanel.SetActive(false);
     }
 }
