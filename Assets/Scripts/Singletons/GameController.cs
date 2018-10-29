@@ -62,6 +62,10 @@ public class GameController : MonoBehaviour {
             {
                 hit.transform.gameObject.GetComponent<MonsterCollection>().ShowCollection();
             }
+            else if(hit.collider.tag == "Train")
+            {
+                hit.transform.gameObject.GetComponent<Training>().ShowMonsterList();
+            }
         }
         
     }

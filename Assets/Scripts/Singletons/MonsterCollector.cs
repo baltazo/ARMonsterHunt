@@ -31,6 +31,12 @@ public class MonsterData
     public SortedList<string, Monster> unlockedMonsters = new SortedList<string, Monster>();
 }
 
+[Serializable]
+public class BusyMonstersData
+{
+    public List<string> busyMonsters = new List<string>();
+}
+
 public class MonsterCollector : MonoBehaviour {
 
 
@@ -53,6 +59,8 @@ public class MonsterCollector : MonoBehaviour {
 
     public SortedList<string, Monster> unlockedMonsters = new SortedList<string, Monster>();
     public Dictionary<string, GameObject> monsterPrefabsList = new Dictionary<string, GameObject>();
+
+    public List<string> unavailableMonsters = new List<string>(); // The monsters that are either training or breeding and unavailable to fight
 
     private GameObject[][] colorsOfMonsters = new GameObject[9][];
     private GameObject prefabToAdd;
@@ -117,7 +125,7 @@ public class MonsterCollector : MonoBehaviour {
 
             BinaryFormatter bf = new BinaryFormatter();
             Debug.Log(bf);
-            FileStream file = File.Open(Application.persistentDataPath + "/monsters.data", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + Path.DirectorySeparatorChar + "monsters.data", FileMode.Open);
             Debug.Log(file);
 
             MonsterData data = (MonsterData)bf.Deserialize(file);
@@ -130,14 +138,31 @@ public class MonsterCollector : MonoBehaviour {
             {
                 Debug.Log("Loading " + monster.Name);
             }
-
         }
-    }
 
-    /*private void OnDisable()
-    {
-        SaveList();
-    }*/
+        if (File.Exists(Application.persistentDataPath + Path.DirectorySeparatorChar + "bmonsters.data"))
+        {
+
+            Debug.Log("Loading Busy List");
+
+            BinaryFormatter bf = new BinaryFormatter();
+            Debug.Log(bf);
+            FileStream file = File.Open(Application.persistentDataPath + Path.DirectorySeparatorChar + "bmonsters.data", FileMode.Open);
+            Debug.Log(file);
+
+            BusyMonstersData data = (BusyMonstersData)bf.Deserialize(file);
+            Debug.Log(data);
+            file.Close();
+
+            for (int i = 0; i < unavailableMonsters.Count; i++)
+            {
+                Debug.Log(unavailableMonsters[i] + " is busy");
+            }
+
+            unavailableMonsters = data.busyMonsters;
+        }
+
+    }
 
     public void SaveList()
     {
@@ -158,10 +183,37 @@ public class MonsterCollector : MonoBehaviour {
 
         bf.Serialize(file, data);
         file.Close();
-
     }
 
-    
+    public void PutInUnavailableList(string monsterName)
+    {
+        unavailableMonsters.Add(monsterName);
+        SaveBusyList();
+    }
+
+    public void RemoveFromUnavailableList(string monsterName)
+    {
+        unavailableMonsters.Remove(monsterName);
+        SaveBusyList();
+    }
+
+    public void SaveBusyList()
+    {
+
+        Debug.Log("Saving Busy List");
+
+        BinaryFormatter bf = new BinaryFormatter();
+        Debug.Log(bf);
+        FileStream file = File.Open(Application.persistentDataPath + Path.DirectorySeparatorChar + "bmonsters.data", FileMode.OpenOrCreate);
+        Debug.Log(file);
+        BusyMonstersData data = new BusyMonstersData();
+        data.busyMonsters = unavailableMonsters;
+        Debug.Log(data);
+
+        bf.Serialize(file, data);
+        file.Close();
+    }
+
 
     public GameObject MonsterChooser(Color scannedColor) // This chooses the monster to be summoned
     {
@@ -305,6 +357,20 @@ public class MonsterCollector : MonoBehaviour {
     {
         unlockedMonsters.Clear();
         SaveList();
+        unavailableMonsters.Clear();
+        SaveBusyList();
+        if (PlayerPrefs.HasKey("_trainingTimer"))
+        {
+            PlayerPrefs.DeleteKey("_trainingTimer");
+        }
+        if (PlayerPrefs.HasKey("_trainingDate"))
+        {
+            PlayerPrefs.DeleteKey("_trainingDate");
+        }
+        if (PlayerPrefs.HasKey("_training"))
+        {
+            PlayerPrefs.DeleteKey("_training");
+        }
     }
 
 }

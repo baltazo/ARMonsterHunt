@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Nav
   - Collection
+  - Train
   layers:
   - Default
   - TransparentFX

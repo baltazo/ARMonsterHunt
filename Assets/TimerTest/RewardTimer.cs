@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class RewardTimer : MonoBehaviour {
 
     // UI
-    public Text timeLabel; // only use if timer has a label
+    //public Text timeLabel; // only use if timer has a label
     public Button timerButton; // used to enbable / disable button when needed
     public Image _progress;
 
@@ -115,21 +115,21 @@ public class RewardTimer : MonoBehaviour {
     private void EnableButton()
     {
             timerButton.interactable = true;
-            timeLabel.text = "CLAIM REWARD";
+            //timeLabel.text = "CLAIM REWARD";
     }
 
     // Disable button
     private void DisableButton()
     {
             timerButton.interactable = false;
-            timeLabel.text = "NOT READY";
+            //timeLabel.text = "NOT READY";
     }
 
     // Use to check the current time before completing any task. Use to validate
     private IEnumerator CheckTime()
     {
         DisableButton();
-        timeLabel.text = "Checking the time...";
+        //timeLabel.text = "Checking the time...";
         Debug.Log("===> Checking for new time");
         yield return StartCoroutine(TimeManager.sharedInstance.GetTime());
         UpdateTime();
@@ -139,7 +139,7 @@ public class RewardTimer : MonoBehaviour {
     public void RewardClicked()
     {
         Debug.Log("===> Claim Button Clicked");
-        ClaimReward(rewardToEarn);
+        ClaimReward();
         PlayerPrefs.SetString("_timer", "Standby");
         StartCoroutine(CheckTime());
     }
@@ -172,9 +172,10 @@ public class RewardTimer : MonoBehaviour {
         StartCoroutine(CheckTime());
     }
 
-    private void ClaimReward(int x)
+    private void ClaimReward()
     {
-        Debug.Log("You earn " + x + " rewards");
+        Debug.Log("RewardClaimed");
     }
+
 
 }
