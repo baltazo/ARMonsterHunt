@@ -119,7 +119,10 @@ public class Training : MonoBehaviour {
 
     public void ShowTrainingChoice(Sprite image, string monster)
     {
-        monsterNameTitle.text = "Training " + monster;
+
+        string monsterTrainTitle = LocalizationManager.sharedInstance.localizedText["train"] + " " + monster;
+
+        monsterNameTitle.text = monsterTrainTitle;
         monsterImage.sprite = image;
 
         tempChosenMonster = monster;
@@ -182,19 +185,41 @@ public class Training : MonoBehaviour {
         if (attributeToTrain == 0) //Strength was trained
         {
             MonsterCollector.sharedInstance.unlockedMonsters[monsterInTraining].Strength += attributeIncrease;
-            trainingEndText.text = monsterInTraining + "'s strength increased by " + attributeIncrease + "!";
+            if (LocalizationManager.sharedInstance.isFrench)
+            {
+                trainingEndText.text = "La force de " + monsterInTraining + " a augmenté de " + attributeIncrease + "!";
+            }
+            else
+            {
+                trainingEndText.text = monsterInTraining + "'s strength increased by " + attributeIncrease + "!";
+            }
             MonsterCollector.sharedInstance.SaveList();
         }
         else if (attributeToTrain == 1) //Intelligence was trained
         {
             MonsterCollector.sharedInstance.unlockedMonsters[monsterInTraining].Intelligence += attributeIncrease;
-            trainingEndText.text = monsterInTraining + "'s intelligence increased by " + attributeIncrease + "!";
+            if (LocalizationManager.sharedInstance.isFrench)
+            {
+                trainingEndText.text = "L'intelligence de " + monsterInTraining + " a augmenté de " + attributeIncrease + "!";
+            }
+            else
+            {
+                trainingEndText.text = monsterInTraining + "'s intelligence increased by " + attributeIncrease + "!";
+            }
+            
             MonsterCollector.sharedInstance.SaveList();
         }
         else if (attributeToTrain == 2) //Life was trained
         {
             MonsterCollector.sharedInstance.unlockedMonsters[monsterInTraining].Life += attributeIncrease;
-            trainingEndText.text = monsterInTraining + "'s life increased by " + attributeIncrease + "!";
+            if (LocalizationManager.sharedInstance.isFrench)
+            {
+                trainingEndText.text = "La vie de " + monsterInTraining + " a augmenté de " + attributeIncrease + "!";
+            }
+            else
+            {
+                trainingEndText.text = monsterInTraining + "'s life increased by " + attributeIncrease + "!";
+            }
             MonsterCollector.sharedInstance.SaveList();
         }
 

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224776001545239992}
   - component: {fileID: 222161502714096064}
   - component: {fileID: 114348595541727818}
+  - component: {fileID: 114145851732263594}
   m_Layer: 5
   m_Name: SearchingText
   m_TagString: Untagged
@@ -45,6 +46,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &114145851732263594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1201486857815440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80693a7d3adbcd347b87b593f4bfa001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: searching_text
 --- !u!114 &114348595541727818
 MonoBehaviour:
   m_ObjectHideFlags: 1

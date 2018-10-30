@@ -81,7 +81,7 @@ public class GameController : MonoBehaviour {
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
 
-        while (!asyncLoad.isDone)
+        while (!asyncLoad.isDone && LocalizationManager.sharedInstance.GetIsReady())
         {
             yield return null;
         }

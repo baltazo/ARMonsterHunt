@@ -87,10 +87,15 @@ public class MonsterCollection : MonoBehaviour {
 
         Monster viewedMonster = MonsterCollector.sharedInstance.unlockedMonsters[monsterName];
 
-        monsterInfo.GetChild(0).GetComponent<Text>().text = "Name : " + viewedMonster.Name;
-        monsterInfo.GetChild(1).GetComponent<Text>().text = "Strength : " + viewedMonster.Strength;
-        monsterInfo.GetChild(2).GetComponent<Text>().text = "Intelligence : " + viewedMonster.Intelligence;
-        monsterInfo.GetChild(3).GetComponent<Text>().text = "Life : " + viewedMonster.Life;
+        string localizedName = LocalizationManager.sharedInstance.localizedText["name"];
+        string localizedStrength = LocalizationManager.sharedInstance.localizedText["strength"];
+        string localizedIntelligence = LocalizationManager.sharedInstance.localizedText["intelligence"];
+        string localizedLife = LocalizationManager.sharedInstance.localizedText["life"];
+
+        monsterInfo.GetChild(0).GetComponent<Text>().text = localizedName + ": " + viewedMonster.Name;
+        monsterInfo.GetChild(1).GetComponent<Text>().text = localizedStrength + ": " + viewedMonster.Strength;
+        monsterInfo.GetChild(2).GetComponent<Text>().text = localizedIntelligence + ": " + viewedMonster.Intelligence;
+        monsterInfo.GetChild(3).GetComponent<Text>().text = localizedLife + ": " + viewedMonster.Life;
 
         monsterView.SetActive(true);
 
