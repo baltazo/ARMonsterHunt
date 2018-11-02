@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MonsterViz.unity
     guid: 15d640ef104c85544a5b3a89f7589224
+  - enabled: 1
+    path: Assets/Scenes/Fight.unity
+    guid: 668a0797a4148534a86f3e6fb744fd67
   m_configObjects: {}

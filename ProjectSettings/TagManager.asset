@@ -7,6 +7,10 @@ TagManager:
   - Nav
   - Collection
   - Train
+  - Breed
+  - Monster
+  - Fight
+  - sign
   layers:
   - Default
   - TransparentFX

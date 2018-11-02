@@ -7,7 +7,10 @@ public class GameController : MonoBehaviour {
 
     public static GameController sharedInstance = null;
 
+    public MonsterManageScreen monsterManage;
+
     private WaitForSeconds timeToLoad;
+    private int fingerID = -1;
 
     private void Awake()
     {
@@ -21,6 +24,10 @@ public class GameController : MonoBehaviour {
             Destroy(gameObject);
         }
 
+        #if !UNITY_EDITOR
+            fingerID = 0; 
+        #endif
+
     }
 
     private void Start()
@@ -30,11 +37,13 @@ public class GameController : MonoBehaviour {
 
     private void Update()
     {
-        /*if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+#if !UNITY_EDITOR
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             TouchDetection(Input.GetTouch(0).position);
-        }*/
-
+            return;
+        }
+#endif
         if (Input.GetMouseButtonDown(0))
         {
             TouchDetection(Input.mousePosition);
@@ -44,7 +53,7 @@ public class GameController : MonoBehaviour {
 
     void TouchDetection(Vector2 touchPosition)
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject(fingerID))
         {
             return;
         }
@@ -64,7 +73,17 @@ public class GameController : MonoBehaviour {
             }
             else if(hit.collider.tag == "Train")
             {
-                hit.transform.gameObject.GetComponent<Training>().ShowMonsterList();
+                //hit.transform.gameObject.GetComponent<Training>().ShowMonsterList();
+                monsterManage.ShowSelectedList("Training");
+            }
+            else if (hit.collider.tag == "Breed")
+            {
+                //hit.transform.gameObject.GetComponent<Training>().ShowMonsterList();
+                monsterManage.ShowSelectedList("Breeding");
+            }
+            else if (hit.collider.tag == "Fight")
+            {
+                monsterManage.ShowSelectedList("Fighting");
             }
         }
         
@@ -90,10 +109,8 @@ public class GameController : MonoBehaviour {
 
     public void ChangeScene(string sceneName)
     {
-        if(sceneName == "ColorHunt" || sceneName == "Ranch" || sceneName == "MonsterViz") // Temporary while all the scenes are not created
-        {
+        
             SceneManager.LoadScene(sceneName);
-        }
         
     }
 

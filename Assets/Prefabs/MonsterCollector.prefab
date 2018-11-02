@@ -52,30 +52,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackMonsters:
-  - {fileID: 1806861035024470, guid: 6484a90f236347842b61146999f7e2ca, type: 2}
+  - {fileID: 1947450311903336, guid: 19d5b3369ee299841b534ab41ec3e2e6, type: 2}
   whiteMonsters:
-  - {fileID: 1216235943304186, guid: c69413341eeb8a24c995f5f05ddb8a0b, type: 2}
+  - {fileID: 1357393133781852, guid: f7b2401153eed7241aa52d768a1225cc, type: 2}
   redMonsters:
-  - {fileID: 1220367692324210, guid: 250a252cc2915f94c93b15f66da9d60b, type: 2}
+  - {fileID: 1913097213649598, guid: b8ffcab6c73e0fc4aba19bf4f3e7fd89, type: 2}
   blueMonsters:
-  - {fileID: 1013502933687390, guid: 859d93046979a254c8dde9f679f2a20e, type: 2}
+  - {fileID: 1964637287244902, guid: ab2ef54a45d42594ab58919c222af9c3, type: 2}
   greenMonsters:
-  - {fileID: 1392699077406502, guid: 6f573c56cabf3c34c8c446196dc11a31, type: 2}
+  - {fileID: 1012934911669262, guid: 55c2782742269ea419678eac5bc70ccb, type: 2}
   yellowMonsters:
-  - {fileID: 1462280703444166, guid: 6a233601c02cd7947a41661af2aa7d27, type: 2}
+  - {fileID: 1823332653114536, guid: 96e27268c28151f44a02fc65c6df4def, type: 2}
   purpleMonsters:
-  - {fileID: 1353251209129778, guid: 92d1a505011cde44d98ee68eb114a65d, type: 2}
+  - {fileID: 1774462951164560, guid: 01d7197bf94eb2d4aaf3ba70e95d4b48, type: 2}
   aquaMonsters:
-  - {fileID: 1810898909529084, guid: 731d294208569fc4aa044a0bc65ac9a7, type: 2}
+  - {fileID: 1379517179448960, guid: 664dccf265317f34ca75272b88a50b2f, type: 2}
   greyMonsters:
-  - {fileID: 1075157537944108, guid: fa4a8b2aa8703af4fa35ad2023840559, type: 2}
+  - {fileID: 1808570298774198, guid: 3ba36cf39f4251f4cb646447c75fd645, type: 2}
+  easyEnemies:
+  - {fileID: 100460, guid: c6a5fbda98111fe47958dcde4e4a3c21, type: 2}
+  - {fileID: 112992, guid: cc727ad8412844a4dad709243b618021, type: 2}
+  - {fileID: 189024, guid: 0c3c6035237fffd49aa7fc71e64f4bd8, type: 2}
+  - {fileID: 116526, guid: 91d9cff4ec9f90449888467acc89750a, type: 2}
+  - {fileID: 158294, guid: e17d60bf3d346414fb392090ace11068, type: 2}
+  - {fileID: 135712, guid: 029d9185f6e211d43bc030303d81548a, type: 2}
+  - {fileID: 114588, guid: 99a904156eb92af43bd3dbb779d975df, type: 2}
+  - {fileID: 128500, guid: 0d03760ff490bed4ca7b640acf8d53f1, type: 2}
+  - {fileID: 177012, guid: 7d72b3a9ce858aa418c45605c9077745, type: 2}
+  - {fileID: 166280, guid: 156c12da89f88c2488a1e73fec314844, type: 2}
+  - {fileID: 130444, guid: c7f00f11a01e09a47961163ac98bef49, type: 2}
+  - {fileID: 177476, guid: a66b49fca6b119c42aa1fb6ad22e3f85, type: 2}
+  normalEnemies: []
+  hardEnemies: []
   monstersImages:
-  - {fileID: 21300000, guid: 6e42522b75aa8b646bb746f00c4922a5, type: 3}
-  - {fileID: 21300000, guid: 7fd2f736a2d125d45990093396e16180, type: 3}
-  - {fileID: 21300000, guid: b8aad80d1c4f9554fa316115d1946401, type: 3}
-  - {fileID: 21300000, guid: 950f2b6d61f22e1459cac045f5593479, type: 3}
-  - {fileID: 21300000, guid: 528c44ee2f3aa264788693ba0aba8c31, type: 3}
-  - {fileID: 21300000, guid: 25a1c6250ed24fa499dc49897908cc40, type: 3}
-  - {fileID: 21300000, guid: 05403ea212624b141b100938e9f8a994, type: 3}
-  - {fileID: 21300000, guid: 1fe5b09816778cb4a9c2ae861a7eaddd, type: 3}
-  - {fileID: 21300000, guid: 8a61c17d4e2cb81438ca537485e181fc, type: 3}
+  - {fileID: 21300000, guid: f7efc23f03fefa6428efd4fca8b8540b, type: 3}
+  - {fileID: 21300000, guid: f96aa1c7fa94765488e5cd65e83ce27b, type: 3}
+  - {fileID: 21300000, guid: 12ad906a720ec414fa308700c105160a, type: 3}
+  - {fileID: 21300000, guid: ee137ef4ffae0a342bf061fabd35b3ed, type: 3}
+  - {fileID: 21300000, guid: de9c823a1b9d31e41be60825db6fae86, type: 3}
+  - {fileID: 21300000, guid: 4e9afa47c6a53f64f98d23c0b8eb2694, type: 3}
+  - {fileID: 21300000, guid: 0bb3966318d191641b1b696e322fa67a, type: 3}
+  - {fileID: 21300000, guid: a84931ab07be3b54f97e327c7d531ab6, type: 3}
+  - {fileID: 21300000, guid: a14fdf6d6dcf1634bba9d2b8245e9583, type: 3}
+  difficulty: 0
+  monsterToLookAt: {fileID: 0}
+  unavailableMonsters: []

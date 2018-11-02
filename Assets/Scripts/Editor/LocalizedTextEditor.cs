@@ -8,6 +8,8 @@ public class LocalizedTextEditor : EditorWindow
 {
     public LocalizationData localizationData;
 
+    private Vector2 scrollPos;
+
     [MenuItem("Window/Localized Text Editor")]
     static void Init()
     {
@@ -16,8 +18,15 @@ public class LocalizedTextEditor : EditorWindow
 
     private void OnGUI()
     {
+
+        EditorGUILayout.BeginVertical();
+
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
+
+
         if (localizationData != null)
         {
+
             SerializedObject serializedObject = new SerializedObject(this);
             SerializedProperty serializedProperty = serializedObject.FindProperty("localizationData");
             EditorGUILayout.PropertyField(serializedProperty, true);
@@ -38,6 +47,9 @@ public class LocalizedTextEditor : EditorWindow
         {
             CreateNewData();
         }
+
+        GUILayout.EndScrollView();
+        EditorGUILayout.EndVertical();
     }
 
     private void LoadLocalizationData()

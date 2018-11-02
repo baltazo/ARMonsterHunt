@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114517986031245284}
   m_Layer: 0
   m_Name: PurpleCube
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051c8c92eb26c594c9a88d4e6092dc4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterName: Cube
-  strength: 33
-  intelligence: 33
-  life: 34
+  monsterName: Rosy
+  strength: 31
+  intelligence: 39
+  life: 30

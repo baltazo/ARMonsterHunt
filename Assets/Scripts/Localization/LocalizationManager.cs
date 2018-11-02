@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.Networking;
 
 public class LocalizationManager : MonoBehaviour {
 
@@ -35,23 +36,23 @@ public class LocalizationManager : MonoBehaviour {
     public void LoadLocalizedText(string fileName)
     {
         localizedText = new Dictionary<string, string>();
-        string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+
+            StartCoroutine(LoadLocalizedTextOnAndroid(fileName));
+            return;
+        }
+
+         
+        string filePath = Path.Combine(Application.streamingAssetsPath, fileName); 
         string dataAsJson;
 
 
         if (File.Exists(filePath))
         {
-            if (Application.platform == RuntimePlatform.Android)
-            {
-                WWW reader = new WWW(filePath);
-                while (!reader.isDone) { }
 
-                dataAsJson = reader.text;
-            }
-            else
-            {
-                dataAsJson = File.ReadAllText(filePath);
-            }
+            dataAsJson = File.ReadAllText(filePath);
 
             LocalizationData loadedData = JsonUtility.FromJson<LocalizationData>(dataAsJson);
 
@@ -67,6 +68,35 @@ public class LocalizationManager : MonoBehaviour {
             Debug.LogError("Cannot find localized text file");
         }
 
+        isReady = true;
+    }
+
+    private IEnumerator LoadLocalizedTextOnAndroid(string fileName)
+    {
+        string filePath;
+
+        filePath = Path.Combine(Application.streamingAssetsPath + Path.DirectorySeparatorChar, fileName);
+
+        string dataAsJson;
+
+        if (filePath.Contains("://") || filePath.Contains(":///"))
+        {
+            UnityWebRequest www = UnityWebRequest.Get(filePath);
+            yield return www.SendWebRequest();
+
+            dataAsJson = www.downloadHandler.text;
+        }
+        else
+        {
+            dataAsJson = File.ReadAllText(filePath);
+        }
+
+        LocalizationData loadedData = JsonUtility.FromJson<LocalizationData>(dataAsJson);
+
+        for (int i = 0; i < loadedData.items.Length; i++)
+        {
+            localizedText.Add(loadedData.items[i].key, loadedData.items[i].value);
+        }
         isReady = true;
     }
 

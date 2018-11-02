@@ -24,21 +24,41 @@ public class MonsterCollection : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		foreach(Monster monster in MonsterCollector.sharedInstance.unlockedMonsters.Values)
+        UpdateSpawnedMonsters();
+
+    }
+
+    public void UpdateSpawnedMonsters()
+    {
+
+        for (int i = 0; i < transform.childCount; i++)
         {
-            GameObject monsterToInstantiate = MonsterCollector.sharedInstance.monsterPrefabsList[monster.PrefabName];
-            
-            monsterToInstantiate.GetComponent<MonsterAttributes>().SetAttributes(monster);
-
-            Instantiate(monsterToInstantiate, spawnPoints[spawnedMonster].position, Quaternion.identity, gameObject.transform);
-
-            spawnedMonster++;
-            if(spawnedMonster == 4)
+            if (transform.GetChild(i).tag == "Monster")
             {
-                break;
+                Destroy(transform.GetChild(i).gameObject);
             }
         }
-	}
+
+        foreach (Monster monster in MonsterCollector.sharedInstance.unlockedMonsters.Values)
+        {
+
+            if (!MonsterCollector.sharedInstance.unavailableMonsters.Contains(monster.Name))
+            {
+                GameObject monsterToInstantiate = MonsterCollector.sharedInstance.monsterPrefabsList[monster.PrefabName];
+
+                monsterToInstantiate.GetComponent<MonsterAttributes>().SetAttributes(monster);
+
+                Instantiate(monsterToInstantiate, spawnPoints[spawnedMonster].position, Quaternion.identity, gameObject.transform);
+
+                spawnedMonster++;
+                if (spawnedMonster == 4)
+                {
+                    break;
+                }
+            }
+
+        }
+    }
 
     public void ShowCollection()
     {
@@ -104,6 +124,17 @@ public class MonsterCollection : MonoBehaviour {
     public void HideMonster()
     {
         monsterView.SetActive(false);
+    }
+
+    public void ResetList()
+    {
+
+        for (int i = 0; i < monsterList.transform.childCount; i++)
+        {
+            monsterList.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        monsterCollectionPopulated = false;
     }
 
 }

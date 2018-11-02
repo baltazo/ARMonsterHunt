@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class Training : MonoBehaviour {
 
+    public MonsterCollection monsterCollection;
+
     public GameObject trainingButton; // The Button to click when the training is finished
     public Sprite[] rewardImages;
 
-    public GameObject trainingPanel;
+    public GameObject monsterManagePanel;
     public GameObject monsterButtonPrefab;
     public GameObject monsterList;
 
@@ -28,10 +30,9 @@ public class Training : MonoBehaviour {
 
     private string monsterInTraining; // The name of the monster that is training;
 
-    private bool monsterListPopulated = false;
     private string tempChosenMonster;
 
-    private bool trainingNow = false;
+    public bool trainingNow = false;
     private int attributeToTrain;
     private int attributeIncrease; // the amount to increase the attribute
 
@@ -50,56 +51,9 @@ public class Training : MonoBehaviour {
         }
     }
 
-    public void ShowMonsterList()
+    public void ShowTrainingNowPanel()
     {
-        if (!trainingNow)
-        {
-            if (!monsterListPopulated)
-            {
-                foreach (Monster monster in MonsterCollector.sharedInstance.unlockedMonsters.Values)
-                {
-                    foreach (Sprite image in MonsterCollector.sharedInstance.monstersImages)
-                    {
-                        if (monster.PrefabName == image.name)
-                        {
-                            monsterButtonPrefab.transform.GetChild(0).GetComponent<Image>().sprite = image;
-                            monsterButtonPrefab.transform.GetChild(1).GetComponent<Text>().text = monster.Name;
-                            monsterButtonPrefab.GetComponent<MonsterViewButton>().training = this;
-
-                            if (MonsterCollector.sharedInstance.unavailableMonsters.Contains(monster.Name))
-                            {
-                                
-                                monsterButtonPrefab.GetComponent<Button>().interactable = false;
-                                monsterButtonPrefab.transform.GetChild(2).gameObject.SetActive(true);
-                                monsterButtonPrefab.transform.GetChild(2).GetComponent<Text>().text = "Training...";
-                            }
-                            else
-                            {
-                                monsterButtonPrefab.GetComponent<Button>().interactable = true;
-                                monsterButtonPrefab.transform.GetChild(2).gameObject.SetActive(false);
-                            }
-
-                            Instantiate(monsterButtonPrefab, monsterList.transform);
-                        }
-                    }
-                }
-            }
-
-
-            float numberOfMonsters = MonsterCollector.sharedInstance.unlockedMonsters.Count + 0.2f;
-            float heightOfList = Mathf.Round(numberOfMonsters / 2) * 600f;
-
-            RectTransform rt = monsterList.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(rt.sizeDelta.x, heightOfList);
-
-            monsterListPopulated = true;
-
-            trainingPanel.SetActive(true);
-        }
-        else
-        {
-            trainingNowPanel.SetActive(true);
-        }
+        trainingNowPanel.SetActive(true);
     }
 
     public void HideTrainingNowPanel()
@@ -110,11 +64,6 @@ public class Training : MonoBehaviour {
     public void HideEndTrainingPanel()
     {
         traningEndPanel.SetActive(false);
-    }
-
-    public void HideTrainingPanel()
-    {
-        trainingPanel.SetActive(false);
     }
 
     public void ShowTrainingChoice(Sprite image, string monster)
@@ -150,11 +99,11 @@ public class Training : MonoBehaviour {
 
     public void Train(int attribute)
     {
-        trainingPanel.SetActive(false);
-        monsterView.SetActive(false);
+        
         trainingNow = true;
 
         Inventory.sharedInstance.inventoryItems[attribute]--;
+        Inventory.sharedInstance.SaveInventory();
         monsterInTraining = tempChosenMonster;
         MonsterCollector.sharedInstance.PutInUnavailableList(monsterInTraining);
 
@@ -172,6 +121,11 @@ public class Training : MonoBehaviour {
         PlayerPrefs.SetInt("_trainingCategory", attributeToTrain);
         PlayerPrefs.SetInt("_attributeIncrease", attributeIncrease);
         PlayerPrefs.SetString("_monsterInTraining", monsterInTraining);
+
+        monsterCollection.UpdateSpawnedMonsters();
+
+        monsterManagePanel.SetActive(false);
+        monsterView.SetActive(false);
 
     }
 
@@ -223,10 +177,12 @@ public class Training : MonoBehaviour {
             MonsterCollector.sharedInstance.SaveList();
         }
 
-        traningEndPanel.SetActive(true);
-
         MonsterCollector.sharedInstance.RemoveFromUnavailableList(monsterInTraining);
         trainingNow = false;
         PlayerPrefs.SetInt("_training", 0);
+
+        monsterCollection.UpdateSpawnedMonsters();
+
+        traningEndPanel.SetActive(true);
     }
 }

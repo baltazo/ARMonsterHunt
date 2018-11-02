@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class MonsterViewButton : MonoBehaviour {
 
     public MonsterCollection monsterCollection;
-    public Training training;
+    public MonsterManageScreen monsterManage;
 
     public void ShowThisMonster()
     {
@@ -15,12 +15,12 @@ public class MonsterViewButton : MonoBehaviour {
         Sprite image = gameObject.transform.GetChild(0).GetComponent<Image>().sprite;
         monsterCollection.ShowMonster(image, name);
     }
-    
-    public void TrainThisMonster()
+
+    public void SelectThisMonster()
     {
         string name = gameObject.transform.GetChild(1).GetComponent<Text>().text;
         Sprite image = gameObject.transform.GetChild(0).GetComponent<Image>().sprite;
-        training.ShowTrainingChoice(image, name);
+        monsterManage.MonsterAction(image, name);
     }
 
 }

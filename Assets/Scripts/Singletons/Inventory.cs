@@ -42,17 +42,17 @@ public class Inventory : MonoBehaviour {
 
     private void LoadIntentory()
     {
-        if (File.Exists(Application.persistentDataPath + Path.DirectorySeparatorChar + "inventory.data"))
-        {
+        //if (File.Exists(Application.persistentDataPath + Path.DirectorySeparatorChar + "inventory.data"))
+        //{
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + Path.DirectorySeparatorChar + "inventory.data", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + Path.DirectorySeparatorChar + "inventory.data", FileMode.OpenOrCreate);
 
             InventoryData data = (InventoryData)bf.Deserialize(file);
             file.Close();
 
             inventoryPieces = data.inventoryPieces;
             inventoryItems = data.inventoryItems;
-        }
+        //}
     }
 
     public void SaveInventory()

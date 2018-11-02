@@ -52,9 +52,15 @@ public class MonsterCollector : MonoBehaviour {
     public GameObject[] aquaMonsters;
     public GameObject[] greyMonsters;
 
+    public GameObject[] easyEnemies;
+    public GameObject[] normalEnemies;
+    public GameObject[] hardEnemies;
+
     public Sprite[] monstersImages;
 
     public Monster monsterToFight; // The chosen monster to fight
+    public int difficulty;
+
     public GameObject monsterToLookAt; // The chosen monster prefab to visualize
 
     public SortedList<string, Monster> unlockedMonsters = new SortedList<string, Monster>();
@@ -118,14 +124,13 @@ public class MonsterCollector : MonoBehaviour {
     public void LoadList()
     {
 
-        if(File.Exists(Application.persistentDataPath + Path.DirectorySeparatorChar + "monsters.data"))
-        {
-
+        //if(File.Exists(Application.persistentDataPath + Path.DirectorySeparatorChar + "monsters.data"))
+        //{
             Debug.Log("Loading List");
 
             BinaryFormatter bf = new BinaryFormatter();
             Debug.Log(bf);
-            FileStream file = File.Open(Application.persistentDataPath + Path.DirectorySeparatorChar + "monsters.data", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + Path.DirectorySeparatorChar + "monsters.data", FileMode.OpenOrCreate);
             Debug.Log(file);
 
             MonsterData data = (MonsterData)bf.Deserialize(file);
@@ -138,20 +143,20 @@ public class MonsterCollector : MonoBehaviour {
             {
                 Debug.Log("Loading " + monster.Name);
             }
-        }
+        //}
 
-        if (File.Exists(Application.persistentDataPath + Path.DirectorySeparatorChar + "bmonsters.data"))
-        {
+        //if (File.Exists(Application.persistentDataPath + Path.DirectorySeparatorChar + "bmonsters.data"))
+        //{
 
             Debug.Log("Loading Busy List");
 
-            BinaryFormatter bf = new BinaryFormatter();
-            Debug.Log(bf);
-            FileStream file = File.Open(Application.persistentDataPath + Path.DirectorySeparatorChar + "bmonsters.data", FileMode.Open);
-            Debug.Log(file);
+            BinaryFormatter bf2 = new BinaryFormatter();
+            Debug.Log(bf2);
+            FileStream file2 = File.Open(Application.persistentDataPath + Path.DirectorySeparatorChar + "bmonsters.data", FileMode.OpenOrCreate);
+            Debug.Log(file2);
 
-            BusyMonstersData data = (BusyMonstersData)bf.Deserialize(file);
-            Debug.Log(data);
+            BusyMonstersData data2 = (BusyMonstersData)bf2.Deserialize(file2);
+            Debug.Log(data2);
             file.Close();
 
             for (int i = 0; i < unavailableMonsters.Count; i++)
@@ -159,8 +164,8 @@ public class MonsterCollector : MonoBehaviour {
                 Debug.Log(unavailableMonsters[i] + " is busy");
             }
 
-            unavailableMonsters = data.busyMonsters;
-        }
+            unavailableMonsters = data2.busyMonsters;
+        //}
 
     }
 
@@ -333,6 +338,40 @@ public class MonsterCollector : MonoBehaviour {
 
     }
 
+    public void AddFusedMonsterToList(GameObject monster, string chosenName, int str, int intel, int life)
+    {
+        string name = chosenName;
+
+        if (unlockedMonsters.ContainsKey(name) || monsterPrefabsList.ContainsKey(name))
+        {
+            Debug.Log("Monster already named that way, changing name");
+            while (unlockedMonsters.ContainsKey(name) || monsterPrefabsList.ContainsKey(name)) //Updates the monster name so that there are no monsters with the same name
+            {
+                int variation = 001;
+                string monsterName = chosenName + variation;
+
+                name = monsterName;
+                variation += 001;
+            }
+        }
+
+        string prefabName = monster.gameObject.name;
+
+        Monster newMonster = new Monster(name, prefabName, str, intel, life);
+
+        unlockedMonsters.Add(newMonster.Name, newMonster);
+
+        UpdateDictionnary(newMonster, monster);
+        SaveList();
+
+    }
+
+    public void RemoveFromList(string monster)
+    {
+        unlockedMonsters.Remove(monster);
+        SaveList();
+    }
+
     private void UpdateDictionnary(Monster monster, GameObject monsterPrefab)
     {
         if (monsterPrefabsList.ContainsKey(monster.PrefabName)) //If the prefab has already been added, stop there.
@@ -348,9 +387,10 @@ public class MonsterCollector : MonoBehaviour {
         monsterToLookAt = monsterPrefabsList[chosenMonster];
     }
 
-    public void SetMonsterToFight(string chosenMonsterName)
+    public void SetMonsterToFight(string chosenMonsterName, int diff)
     {
         monsterToFight = unlockedMonsters[chosenMonsterName];
+        difficulty = diff;
     }
 
     public void DebugClearList()
@@ -370,6 +410,18 @@ public class MonsterCollector : MonoBehaviour {
         if (PlayerPrefs.HasKey("_training"))
         {
             PlayerPrefs.DeleteKey("_training");
+        }
+        if (PlayerPrefs.HasKey("_breedingTimer"))
+        {
+            PlayerPrefs.DeleteKey("_breedingTimer");
+        }
+        if (PlayerPrefs.HasKey("_breedingDate"))
+        {
+            PlayerPrefs.DeleteKey("_breedingDate");
+        }
+        if (PlayerPrefs.HasKey("_breeding"))
+        {
+            PlayerPrefs.DeleteKey("_breeding");
         }
     }
 

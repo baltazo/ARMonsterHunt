@@ -14,7 +14,7 @@ public class MonsterViz : MonoBehaviour {
     public Camera firstPersonCamera;
 
     // The prefab for tracking and visualizing detected planes
-    public GameObject detectedPlanePrefab;
+    //public GameObject detectedPlanePrefab;
 
     // A gameobject parenting UI for displaying the "searching for planes" snackbar.
     public GameObject searchingForPlaneUI;
@@ -28,6 +28,9 @@ public class MonsterViz : MonoBehaviour {
 
     // True if the app is in the process of quitting due to an ARCore connection error, otherwise false.
     private bool isQuitting = false;
+
+    // Setting this to true will prevent multiple instances from being spawned
+    private bool hasAppeared = false;
 
     private void Update()
     {
@@ -44,6 +47,12 @@ public class MonsterViz : MonoBehaviour {
                 showSearchingUI = false;
                 break;
             }
+        }
+
+        // If the monster has already been placed, stop here
+        if (hasAppeared)
+        {
+            return;
         }
 
         searchingForPlaneUI.SetActive(showSearchingUI);
@@ -81,6 +90,7 @@ public class MonsterViz : MonoBehaviour {
 
                 // Make model a child of the anchor.
                 monster.transform.parent = anchor.transform;
+                hasAppeared = true;
             }
         }
 
