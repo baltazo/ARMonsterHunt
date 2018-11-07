@@ -79,11 +79,9 @@ MonoBehaviour:
   - {fileID: 114588, guid: 99a904156eb92af43bd3dbb779d975df, type: 2}
   - {fileID: 128500, guid: 0d03760ff490bed4ca7b640acf8d53f1, type: 2}
   - {fileID: 177012, guid: 7d72b3a9ce858aa418c45605c9077745, type: 2}
-  - {fileID: 166280, guid: 156c12da89f88c2488a1e73fec314844, type: 2}
-  - {fileID: 130444, guid: c7f00f11a01e09a47961163ac98bef49, type: 2}
-  - {fileID: 177476, guid: a66b49fca6b119c42aa1fb6ad22e3f85, type: 2}
   normalEnemies: []
   hardEnemies: []
+  enemyMonsterPrefab: {fileID: 0}
   monstersImages:
   - {fileID: 21300000, guid: f7efc23f03fefa6428efd4fca8b8540b, type: 3}
   - {fileID: 21300000, guid: f96aa1c7fa94765488e5cd65e83ce27b, type: 3}

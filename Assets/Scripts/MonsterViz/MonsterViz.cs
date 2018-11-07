@@ -13,14 +13,17 @@ public class MonsterViz : MonoBehaviour {
     // The first person camera being used to render the passthrough camera image
     public Camera firstPersonCamera;
 
-    // The prefab for tracking and visualizing detected planes
-    //public GameObject detectedPlanePrefab;
+    // The gameObject generating planes for detected planes
+    public GameObject planeGenerator;
 
     // A gameobject parenting UI for displaying the "searching for planes" snackbar.
     public GameObject searchingForPlaneUI;
 
     // The rotation in degrees need to apply to model it is placed.
     private const float modelRotation = 180f;
+
+    // The prefab for tracking and visualizing detected planes
+    public GameObject DetectedPlanePrefab;
 
     // A list to hold all planes ARCore is tracking in the current frame. This object is used across
     // the application to avoid per-frame allocations.
@@ -50,10 +53,6 @@ public class MonsterViz : MonoBehaviour {
         }
 
         // If the monster has already been placed, stop here
-        if (hasAppeared)
-        {
-            return;
-        }
 
         searchingForPlaneUI.SetActive(showSearchingUI);
 
@@ -70,27 +69,32 @@ public class MonsterViz : MonoBehaviour {
 
         if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
         {
+
             // Use hit pose and camera pose to check if hittest is from the back of the plane, if it is, no need to create the anchor.
             if ((hit.Trackable is DetectedPlane) && Vector3.Dot(firstPersonCamera.transform.position - hit.Pose.position, hit.Pose.rotation * Vector3.up) < 0)
             {
                 Debug.Log("Hit at back of the current DetectedPlane");
             }
-            else
+            else if (!hasAppeared)
             {
                 // Choose the model to be instantiated
                 // Instantiatemodel at the hit pose.
                 GameObject monster = Instantiate(MonsterCollector.sharedInstance.monsterToLookAt, hit.Pose.position, hit.Pose.rotation);
 
-                monster.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 // Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
                 monster.transform.Rotate(0, modelRotation, 0, Space.Self);
+
+                
 
                 // Create an anchor to allow ARCore to track the hitpoint as understanding of the physical world evolves.
                 Anchor anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
                 // Make model a child of the anchor.
                 monster.transform.parent = anchor.transform;
+
+                monster.transform.position = Vector3.zero;
                 hasAppeared = true;
+                planeGenerator.SetActive(false);
             }
         }
 

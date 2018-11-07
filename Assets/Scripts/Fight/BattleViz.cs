@@ -14,7 +14,7 @@ public class BattleViz : MonoBehaviour {
     public Camera firstPersonCamera;
 
     // The prefab for tracking and visualizing detected planes
-    public GameObject detectedPlanePrefab;
+    public GameObject detectedPlanePrefab; 
 
     // A gameobject parenting UI for displaying the "searching for planes" snackbar.
     public GameObject searchingForPlaneUI;
@@ -32,9 +32,7 @@ public class BattleViz : MonoBehaviour {
     // Setting this to true will prevent multiple instances from being spawned
     private bool hasAppeared = false;
 
-    public GameObject CrosshairGenerator;
-
-    // These are the models to instantiate and fight
+    public GameObject planeGenerator;
 
     public GameObject arena;
     public Transform playerSpawnPoint;
@@ -56,12 +54,6 @@ public class BattleViz : MonoBehaviour {
     private void Update()
     {
         UpdateApplicationLifeCycle();
-
-        // If the arena has already been placed, stop here
-        if (hasAppeared)
-        {
-            return;
-        }
 
         // Hide snackbar when displaying at least one tracked plane
         Session.GetTrackables<DetectedPlane>(allPlanes);
@@ -97,7 +89,7 @@ public class BattleViz : MonoBehaviour {
             {
                 Debug.Log("Hit at back of the current DetectedPlane");
             }
-            else
+            else if(!hasAppeared)
             {
 
                 //Place the arena where the player touched
@@ -118,7 +110,7 @@ public class BattleViz : MonoBehaviour {
                 // Make model a child of the anchor.
                 arena.transform.parent = anchor.transform;
                 hasAppeared = true;
-                CrosshairGenerator.SetActive(false);
+                planeGenerator.SetActive(false);
                 battleManager.StartFight(monster, enemy);
             }
         }

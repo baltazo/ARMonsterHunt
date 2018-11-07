@@ -19,11 +19,15 @@ public class MonsterAttributes : MonoBehaviour {
         life = thisMonster.Life;
     }
 
-    private void OnCollisionEnter(Collision collision) // In the fights, this is called when a monster attacks another
+    public void Attack()
     {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            battleManager.ResolveAttack();
-        }
+        battleManager.ResolveAttack();
     }
+
+    public void DoneAttacking()
+    {
+        battleManager.DoneAttacking();
+    }
+
+
 }

@@ -25,8 +25,8 @@ public class BattleManager : MonoBehaviour {
     [SerializeField] private int mediumAttributes = 200;
     [SerializeField] private int hardAttributes = 400;
 
-    [SerializeField] private int startFightSeconds = 3;
-    [SerializeField] private int attackDelay = 2;
+    private WaitForSeconds firstWaitFight = new WaitForSeconds(5f);
+    private WaitForSeconds waitAttack = new WaitForSeconds(1.5f);
 
     private bool playerAttacking;
 
@@ -95,7 +95,7 @@ public class BattleManager : MonoBehaviour {
         int _intel = enemyAttributes[1];
         int _life = enemyAttributes[2];
 
-        enemyMonster = new Monster("Enemy Monster", enemyMonsterPrefab.name, _str, _intel, _life);
+        enemyMonster = new Monster("Enemy Monster", "", _str, _intel, _life);
 
         enemyLife = _life * lifeMultiplier;
         enemyStrength = _str;
@@ -111,6 +111,8 @@ public class BattleManager : MonoBehaviour {
         playerMonsterPrefab.GetComponent<MonsterAttributes>().battleManager = this;
         enemyMonsterPrefab.GetComponent<MonsterAttributes>().battleManager = this;
 
+        enemyMonster.PrefabName = enemyMonsterPrefab.name;
+
         playerAnimator = playerMonsterPrefab.GetComponent<Animator>();
         enemyAnimator = enemyMonsterPrefab.GetComponent<Animator>();
 
@@ -122,11 +124,15 @@ public class BattleManager : MonoBehaviour {
         {
             playerAttacking = false;
         }
-        InvokeRepeating("Fight", startFightSeconds, attackDelay); // This will go on until one the the two monster's life is 0 or less
+        StartCoroutine(Fight(firstWaitFight));
+        // This will go on until one the the two monster's life is 0 or less
     }
 
-    private void Fight() // This sets the animation, when the colliders will touch the monster will actually attack
+    private IEnumerator Fight(WaitForSeconds waitTime) // This sets the animation, when the colliders will touch the monster will actually attack
     {
+
+        yield return waitTime;
+
         if (playerAttacking)
         {
             playerAnimator.SetTrigger("Attack");
@@ -139,14 +145,31 @@ public class BattleManager : MonoBehaviour {
 
     public void ResolveAttack() // This is called by the MonsterAttributes script OnCollisionEnter
     {
+
+        // Attacking now
+        Debug.Log("Resolving Attack");
+
         if (playerAttacking)
         {
             // The player attacks the monster
+            enemyAnimator.SetTrigger("Damage");
+            playerAttacking = false;
         }
         else
         {
             // The monster attacks the player
+            playerAnimator.SetTrigger("Damage");
+            playerAttacking = true;
         }
     }
+
+    public void DoneAttacking()
+    {
+        //Done attacking, next turn
+        Debug.Log("Done attacking");
+        StartCoroutine(Fight(waitAttack));
+    }
+
+
     
 }

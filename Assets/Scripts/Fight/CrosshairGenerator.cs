@@ -9,8 +9,22 @@ public class CrosshairGenerator : MonoBehaviour
 
     private List<DetectedPlane> m_NewPlanes = new List<DetectedPlane>();
 
+    private void Start()
+    {
+        if (transform.childCount != 0)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i));
+            }
+        }
+    }
+
     private void Update()
     {
+
+        Debug.Log(Session.Status);
+
         if (Session.Status != SessionStatus.Tracking)
         {
             return;

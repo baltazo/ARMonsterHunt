@@ -11,6 +11,8 @@ TagManager:
   - Monster
   - Fight
   - sign
+  - Spawn
+  - Plane
   layers:
   - Default
   - TransparentFX

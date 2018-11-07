@@ -263,6 +263,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea1e9f199b6e9d24b87a4e8298e90567, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &281347918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1379906778501192, guid: ea1e9f199b6e9d24b87a4e8298e90567,
+    type: 2}
+  m_PrefabInternal: {fileID: 281347917}
 --- !u!1001 &385944059
 Prefab:
   m_ObjectHideFlags: 0
@@ -607,7 +612,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstPersonCamera: {fileID: 686222657}
+  planeGenerator: {fileID: 281347918}
   searchingForPlaneUI: {fileID: 747945991}
+  DetectedPlanePrefab: {fileID: 1654175882956584, guid: 6a35c744e5010405c847fad90282d2be,
+    type: 2}
 --- !u!1 &954501553
 GameObject:
   m_ObjectHideFlags: 0

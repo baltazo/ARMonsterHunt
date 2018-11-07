@@ -62,7 +62,7 @@ public class MonsterCollection : MonoBehaviour {
 
                 monsterToInstantiate.GetComponent<MonsterAttributes>().SetAttributes(monster);
 
-                Instantiate(monsterToInstantiate, spawnPoints[spawnedMonster].position, Quaternion.identity, gameObject.transform);
+                Instantiate(monsterToInstantiate, spawnPoints[spawnedMonster].position, Quaternion.identity, spawnPoints[spawnedMonster].transform);
 
                 spawnedMonster++;
                 if (spawnedMonster == 4)

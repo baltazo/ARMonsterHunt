@@ -270,7 +270,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 461258}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.000012282188, y: -0.000008146282, z: -93.73861}
 --- !u!4 &401782
 Transform:
   m_ObjectHideFlags: 1
@@ -306,7 +306,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 401782}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90}
 --- !u!4 &421038
 Transform:
   m_ObjectHideFlags: 1
@@ -319,7 +319,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 461258}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.000013357969, y: -0.000008276763, z: -99.24566}
 --- !u!4 &451336
 Transform:
   m_ObjectHideFlags: 1
@@ -332,7 +332,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 401782}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 39.74853, y: 37.160835, z: -143.93454}
 --- !u!4 &451492
 Transform:
   m_ObjectHideFlags: 1
@@ -345,7 +345,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 401782}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -40.61597, y: 142.92615, z: -143.42915}
 --- !u!4 &453836
 Transform:
   m_ObjectHideFlags: 1
@@ -371,7 +371,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 401782}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.0000025613208, y: -89.999985, z: 156.92912}
 --- !u!4 &461258
 Transform:
   m_ObjectHideFlags: 1
@@ -388,7 +388,7 @@ Transform:
   - {fileID: 495826}
   m_Father: {fileID: 401782}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: -103.82522}
 --- !u!4 &463212
 Transform:
   m_ObjectHideFlags: 1
@@ -401,7 +401,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 401782}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -11.161666, y: -139.74112, z: -111.82925}
 --- !u!4 &464678
 Transform:
   m_ObjectHideFlags: 1
@@ -414,7 +414,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 401782}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.0000051226416, y: -89.99998, z: 162.43616}
 --- !u!4 &466786
 Transform:
   m_ObjectHideFlags: 1
@@ -427,7 +427,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 401782}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.220725, y: -40.829937, z: -112.457275}
 --- !u!4 &472282
 Transform:
   m_ObjectHideFlags: 1
@@ -441,7 +441,7 @@ Transform:
   - {fileID: 474562}
   m_Father: {fileID: 461258}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 48.044197, y: -133.19458, z: 155.45644}
 --- !u!4 &474562
 Transform:
   m_ObjectHideFlags: 1
@@ -454,7 +454,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 472282}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -34.387383, y: -69.47602, z: 95.54454}
 --- !u!4 &495826
 Transform:
   m_ObjectHideFlags: 1
@@ -468,7 +468,7 @@ Transform:
   - {fileID: 497862}
   m_Father: {fileID: 461258}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -48.398518, y: 134.38718, z: 154.00558}
 --- !u!4 &497862
 Transform:
   m_ObjectHideFlags: 1
@@ -481,7 +481,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 495826}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 34.211258, y: 70.87824, z: 95.13763}
 --- !u!4 &499078
 Transform:
   m_ObjectHideFlags: 1
@@ -494,7 +494,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 401782}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: -103.82522}
 --- !u!95 &9510704
 Animator:
   serializedVersion: 3
@@ -589,6 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051c8c92eb26c594c9a88d4e6092dc4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleManager: {fileID: 0}
   monsterName: 
   strength: 0
   intelligence: 0

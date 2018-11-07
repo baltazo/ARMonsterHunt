@@ -24,11 +24,11 @@ GameObject:
   - component: {fileID: 114776205485222536}
   m_Layer: 0
   m_Name: DetectedPlaneVisualizer
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4055847820020234
 Transform:
   m_ObjectHideFlags: 1

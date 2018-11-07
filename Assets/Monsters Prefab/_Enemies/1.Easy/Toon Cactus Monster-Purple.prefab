@@ -1237,7 +1237,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 05edc61ed1243e74b9ea7280efe1acd8, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -10444,6 +10444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051c8c92eb26c594c9a88d4e6092dc4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleManager: {fileID: 0}
   monsterName: 
   strength: 0
   intelligence: 0

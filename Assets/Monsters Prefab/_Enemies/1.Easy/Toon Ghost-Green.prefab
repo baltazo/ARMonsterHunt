@@ -5222,6 +5222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051c8c92eb26c594c9a88d4e6092dc4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleManager: {fileID: 0}
   monsterName: 
   strength: 0
   intelligence: 0
