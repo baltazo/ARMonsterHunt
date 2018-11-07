@@ -55,6 +55,7 @@ public class MonsterCollector : MonoBehaviour {
     public GameObject[] easyEnemies;
     public GameObject[] normalEnemies;
     public GameObject[] hardEnemies;
+    public GameObject enemyMonsterPrefab;
 
     public Sprite[] monstersImages;
 
@@ -323,6 +324,14 @@ public class MonsterCollector : MonoBehaviour {
             stats[UnityEngine.Random.Range(0, stats.Length)] += 1;
         }
 
+        for (int i = 0; i < stats.Length; i++)
+        {
+            if (stats[i] == 0)
+            {
+                stats[i]++;
+            }
+        }
+
         int str = stats[0];
         int intel = stats[1];
         int life = stats[2];
@@ -389,6 +398,21 @@ public class MonsterCollector : MonoBehaviour {
 
     public void SetMonsterToFight(string chosenMonsterName, int diff)
     {
+        if (diff == 0)
+        {
+            int randomMonster = UnityEngine.Random.Range(0, easyEnemies.Length);
+            enemyMonsterPrefab = easyEnemies[randomMonster];
+        }
+        else if (diff == 1)
+        {
+            int randomMonster = UnityEngine.Random.Range(0, normalEnemies.Length);
+            enemyMonsterPrefab = normalEnemies[randomMonster];
+        }
+        else if (diff == 2)
+        {
+            int randomMonster = UnityEngine.Random.Range(0, hardEnemies.Length);
+            enemyMonsterPrefab = hardEnemies[randomMonster];
+        }
         monsterToFight = unlockedMonsters[chosenMonsterName];
         difficulty = diff;
     }

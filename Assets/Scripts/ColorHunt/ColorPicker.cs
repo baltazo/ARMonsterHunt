@@ -93,7 +93,7 @@ public class ColorPicker : MonoBehaviour {
             //Get a monster
             GameObject monsterSummoned = MonsterCollector.sharedInstance.MonsterChooser(scannedColor);
             foundMonster = monsterSummoned;
-            summonedMonsterText.text = monsterSummoned.name;
+            summonedMonsterText.text = LocalizationManager.sharedInstance.localizedText["you_found"] + " " + monsterSummoned.name + "!";
 
             foreach (Sprite image in MonsterCollector.sharedInstance.monstersImages)
             {

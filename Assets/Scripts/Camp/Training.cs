@@ -11,8 +11,6 @@ public class Training : MonoBehaviour {
     public Sprite[] rewardImages;
 
     public GameObject monsterManagePanel;
-    public GameObject monsterButtonPrefab;
-    public GameObject monsterList;
 
     // When a players clicks on a monster, this screen appears
     public GameObject monsterView;
@@ -69,9 +67,8 @@ public class Training : MonoBehaviour {
     public void ShowTrainingChoice(Sprite image, string monster)
     {
 
-        string monsterTrainTitle = LocalizationManager.sharedInstance.localizedText["train"] + " " + monster;
-
-        monsterNameTitle.text = monsterTrainTitle;
+       
+        monsterNameTitle.text = monster;
         monsterImage.sprite = image;
 
         tempChosenMonster = monster;

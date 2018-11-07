@@ -54,6 +54,6 @@ MonoBehaviour:
   inventoryPieces: 000000000000000000000000
   inventoryItems: 000000000000000000000000
   itemImages:
-  - {fileID: 21300000, guid: c2efd48f02c3f4dda825950570186fcf, type: 3}
-  - {fileID: 21300000, guid: 114551c53d3154e31bc9184812a8acc8, type: 3}
-  - {fileID: 21300000, guid: 389f478ce02f240c38e504dafb3709c0, type: 3}
+  - {fileID: 21300000, guid: 9b974a857dafd3241841c64474a1404e, type: 3}
+  - {fileID: 21300000, guid: b500e3e35a51a4c41892700cd7d94f95, type: 3}
+  - {fileID: 21300000, guid: b3027ab6baa01934d824fb25291cdb84, type: 3}

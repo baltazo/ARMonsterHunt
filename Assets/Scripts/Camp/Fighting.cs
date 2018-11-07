@@ -4,12 +4,25 @@ using UnityEngine;
 
 public class Fighting : MonoBehaviour {
 
+    public GameObject fightMonsterPanel;
 
-    private int difficulty;
+    private string chosenMonster;
 
 	public void ChooseMonsterToFight(string monsterName)
     {
-        MonsterCollector.sharedInstance.SetMonsterToFight(monsterName, difficulty);
+        chosenMonster = monsterName;
+        ShowHideFightViewPanel();
+    }
+
+    public void ShowHideFightViewPanel()
+    {
+        fightMonsterPanel.SetActive(!fightMonsterPanel.activeSelf);
+    }
+
+    public void StartFighting(int difficulty)
+    {
+        MonsterCollector.sharedInstance.SetMonsterToFight(chosenMonster, difficulty);
         GameController.sharedInstance.ChangeScene("Fight");
     }
+
 }

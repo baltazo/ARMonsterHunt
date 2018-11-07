@@ -75,21 +75,46 @@ public class Inventory : MonoBehaviour {
 
         if (category == 0) // Category 0 is the strength item
         {
-            messageToReturn = "You found a Strength piece!";
+            if (LocalizationManager.sharedInstance.isFrench)
+            {
+                messageToReturn = "Tu as trouvé un morceau de Force!";
+            }
+            else
+            {
+                messageToReturn = "You found a Strength piece!";
+            }
+
             inventoryPieces[category]++;
             SaveInventory();
             return messageToReturn;
         }
         else if (category == 1) // Category 1 is the intelligence item
         {
-            messageToReturn = "You found an Intelligence piece!";
+            if (LocalizationManager.sharedInstance.isFrench)
+            {
+                messageToReturn = "Tu as trouvé un morceau d'Intelligence!";
+            }
+            else
+            {
+                messageToReturn = "You found an Intelligence piece!";
+            }
+
             inventoryPieces[category]++;
             SaveInventory();
             return messageToReturn;
         }
         else // Category 2 is the intelligence item
         {
-            messageToReturn = "You found a Life piece!";
+
+            if (LocalizationManager.sharedInstance.isFrench)
+            {
+                messageToReturn = "Tu as trouvé un morceau de Vie!";
+            }
+            else
+            {
+                messageToReturn = "You found a Life piece!";
+            }
+
             inventoryPieces[category]++;
             SaveInventory();
             return messageToReturn;

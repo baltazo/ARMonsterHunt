@@ -40,8 +40,12 @@ public class BattleViz : MonoBehaviour {
     public Transform playerSpawnPoint;
     public Transform enemySpawnPoint;
 
+    public BattleManager battleManager;
+
     private Monster chosenMonster;
     private GameObject chosenMonsterPrefab;
+
+    private GameObject enemyMonsterPrefab;
 
     private void Start()
     {
@@ -105,7 +109,8 @@ public class BattleViz : MonoBehaviour {
 
                 // Choose the model to be instantiated
                 // Instantiatemodel at the hit pose.
-                GameObject monster = Instantiate(chosenMonsterPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation, playerSpawnPoint);
+                GameObject monster = Instantiate(chosenMonsterPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation, playerSpawnPoint); // The player's monster model
+                GameObject enemy = Instantiate(MonsterCollector.sharedInstance.enemyMonsterPrefab, enemySpawnPoint.position, enemySpawnPoint.rotation, enemySpawnPoint); // The enemy's monster model
 
                 // Create an anchor to allow ARCore to track the hitpoint as understanding of the physical world evolves.
                 Anchor anchor = hit.Trackable.CreateAnchor(hit.Pose);
@@ -114,6 +119,7 @@ public class BattleViz : MonoBehaviour {
                 arena.transform.parent = anchor.transform;
                 hasAppeared = true;
                 CrosshairGenerator.SetActive(false);
+                battleManager.StartFight(monster, enemy);
             }
         }
 

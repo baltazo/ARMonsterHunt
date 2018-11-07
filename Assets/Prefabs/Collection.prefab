@@ -109,7 +109,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1115508452408134}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.1, y: 3, z: -18.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -216,7 +216,24 @@ MonoBehaviour:
   - {fileID: 4062081828737772}
   - {fileID: 4142084957522514}
   collectionPanel: {fileID: 0}
-  monsterButtonPrefab: {fileID: 1141179298858896, guid: 6e6f33b8c508e4849bcd2dd2e17b0d94,
+  monsterButtonPrefab: {fileID: 1254966026428102, guid: 53514bdea49c6cd43b0d83dffb1a0226,
     type: 2}
-  monsterList: {fileID: 0}
+  monsterList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   monsterView: {fileID: 0}
+  monsterImage: {fileID: 0}
+  monsterInfo: {fileID: 0}
+  previousPageButton: {fileID: 0}
+  nextPageButton: {fileID: 0}
+  pagination:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  activePage: {fileID: 21300000, guid: 56c52ca34132bb644bc8945b2bb4d8e1, type: 3}
+  inactivePage: {fileID: 21300002, guid: 56c52ca34132bb644bc8945b2bb4d8e1, type: 3}

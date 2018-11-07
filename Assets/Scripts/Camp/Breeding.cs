@@ -11,7 +11,7 @@ public class Breeding : MonoBehaviour {
     public GameObject breedingButton;
 
     public GameObject monsterManageScreen;
-    public Transform monsterList;
+    public Transform[] monsterList;
 
     public GameObject breedMonsterPanel;
     public Image breedMonster1;
@@ -63,14 +63,18 @@ public class Breeding : MonoBehaviour {
             monsterName1 = monster;
         }
 
-        for (int i = 0; i < monsterList.childCount; i++)
+        foreach (Transform page in monsterList)
         {
-            Transform button = monsterList.GetChild(i);
-            if (button.GetChild(1).GetComponent<Text>().text == monster)
+            for (int i = 0; i < page.childCount; i++)
             {
-                button.GetComponent<Button>().interactable = false;
+                Transform button = page.GetChild(i);
+                if (button.GetChild(1).GetComponent<Text>().text == monster)
+                {
+                    button.GetComponent<Button>().interactable = false;
+                }
             }
         }
+        
 
         if (monstersToBreed.Count == 2)
         {
@@ -123,7 +127,9 @@ public class Breeding : MonoBehaviour {
         GameObject fusedMonster = MonsterCollector.sharedInstance.MonsterChooser(newMonsterColor);
         newMonster = fusedMonster;
 
-        fusedMonsterRace.text = fusedMonster.name + "!";
+        string youFusedLocalized = LocalizationManager.sharedInstance.localizedText["you_fused"];
+
+        fusedMonsterRace.text = youFusedLocalized + " " + fusedMonster.name + "!";
 
         foreach (Sprite image in MonsterCollector.sharedInstance.monstersImages)
         {
@@ -148,10 +154,13 @@ public class Breeding : MonoBehaviour {
         }
         monstersToBreed.Clear();
 
-        for (int i = 0; i < monsterList.childCount; i++)
+        foreach (Transform page in monsterList)
         {
-            Transform button = monsterList.GetChild(i);
-            button.GetComponent<Button>().interactable = true;
+            for (int i = 0; i < page.childCount; i++)
+            {
+                Transform button = page.GetChild(i);
+                button.GetComponent<Button>().interactable = true;
+            }
         }
 
         breedMonsterPanel.SetActive(false);

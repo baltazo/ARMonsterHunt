@@ -10,17 +10,36 @@ public class MonsterManageScreen : MonoBehaviour {
     public Fighting fighting;
 
     public GameObject monsterManagePanel;
-    public GameObject monsterList;
+    public GameObject[] monsterList;
+    public Image titleImage;
     public Text screenTitle;
+
+    public Sprite fusionTitle;
+    public Sprite[] trainingTitle;
+    public Sprite[] fightTitle;
 
     public GameObject monsterButtonPrefab;
 
+    public Button previousPageButton;
+    public Button nextPageButton;
+
+    public Image[] pagination;
+    public Sprite activePage;
+    public Sprite inactivePage;
+
     private bool monsterListPopulated = false;
     private string activeScreen;
+    public int activeCollectionPage = 0;
+    private int maxPage = 5; // Change this depending on the max number of monster you want
 
     private void Start()
     {
         GameController.sharedInstance.monsterManage = this;
+        monsterList[0].SetActive(true);
+        if (MonsterCollector.sharedInstance.unavailableMonsters.Count > 8)
+        {
+            nextPageButton.interactable = true;
+        }
     }
 
     public void ShowSelectedList(string screenSelected)
@@ -32,6 +51,10 @@ public class MonsterManageScreen : MonoBehaviour {
 
         if (!monsterListPopulated)
         {
+
+            int buttonsAdded = 0;
+            int monsterCollectionPage = 0;
+
             foreach (Monster monster in MonsterCollector.sharedInstance.unlockedMonsters.Values)
             {
                 foreach (Sprite image in MonsterCollector.sharedInstance.monstersImages)
@@ -42,36 +65,42 @@ public class MonsterManageScreen : MonoBehaviour {
                         monsterButtonPrefab.transform.GetChild(1).GetComponent<Text>().text = monster.Name;
                         monsterButtonPrefab.GetComponent<MonsterViewButton>().monsterManage = this;
 
-                        Instantiate(monsterButtonPrefab, monsterList.transform);
+                        Instantiate(monsterButtonPrefab, monsterList[monsterCollectionPage].transform);
+                        buttonsAdded++;
+                    }
+
+                    if (buttonsAdded == 8)
+                    {
+                        monsterCollectionPage++;
+                        buttonsAdded = 0;
+                        nextPageButton.interactable = true;
                     }
                 }
             }
 
-            float numberOfMonsters = MonsterCollector.sharedInstance.unlockedMonsters.Count + 0.2f;
-            float heightOfList = Mathf.Round(numberOfMonsters / 2) * 600f;
-
-            RectTransform rt = monsterList.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(rt.sizeDelta.x, heightOfList);
-
             monsterListPopulated = true;
         }
 
-        for (int i = 0; i < monsterList.transform.childCount; i++)
+        foreach (GameObject page in monsterList)
         {
-            Transform button = monsterList.transform.GetChild(i);
-            string monsterName = monsterList.transform.GetChild(i).GetChild(1).GetComponent<Text>().text;
-            if (MonsterCollector.sharedInstance.unavailableMonsters.Contains(monsterName))
+            for (int i = 0; i < page.transform.childCount; i++)
             {
-                button.GetComponent<Button>().interactable = false;
-                button.GetChild(2).gameObject.SetActive(true);
-                button.GetChild(2).GetComponent<Text>().text = LocalizationManager.sharedInstance.localizedText["unavailable"];
-            }
-            else
-            {
-                button.GetComponent<Button>().interactable = true;
-                button.transform.GetChild(2).gameObject.SetActive(false);
+                Transform button = page.transform.GetChild(i);
+                string monsterName = page.transform.GetChild(i).GetChild(1).GetComponent<Text>().text;
+                if (MonsterCollector.sharedInstance.unavailableMonsters.Contains(monsterName))
+                {
+                    button.GetComponent<Button>().interactable = false;
+                    button.GetChild(2).gameObject.SetActive(true);
+                    button.GetChild(2).GetComponent<Text>().text = LocalizationManager.sharedInstance.localizedText["unavailable"];
+                }
+                else
+                {
+                    button.GetComponent<Button>().interactable = true;
+                    button.transform.GetChild(2).gameObject.SetActive(false);
+                }
             }
         }
+        
 
         if (activeScreen == "Breeding")
         {
@@ -87,6 +116,7 @@ public class MonsterManageScreen : MonoBehaviour {
             }
             else
             {
+                titleImage.sprite = fusionTitle;
                 screenTitle.text = LocalizationManager.sharedInstance.localizedText["fusion_choice"];
                 monsterManagePanel.SetActive(true);
             }
@@ -101,6 +131,14 @@ public class MonsterManageScreen : MonoBehaviour {
             }
             else
             {
+                if (LocalizationManager.sharedInstance.isFrench)
+                {
+                    titleImage.sprite = trainingTitle[1];
+                }
+                else
+                {
+                    titleImage.sprite = trainingTitle[0];
+                }
                 screenTitle.text = LocalizationManager.sharedInstance.localizedText["training"];
                 monsterManagePanel.SetActive(true);
             }
@@ -108,10 +146,61 @@ public class MonsterManageScreen : MonoBehaviour {
 
         if (activeScreen == "Fighting")
         {
+            if (LocalizationManager.sharedInstance.isFrench)
+            {
+                titleImage.sprite = fightTitle[1];
+            }
+            else
+            {
+                titleImage.sprite = fightTitle[0];
+            }
             screenTitle.text = LocalizationManager.sharedInstance.localizedText["fighting"];
             monsterManagePanel.SetActive(true);
         }
         
+    }
+
+    public void NextPage() // TODO: Maybe use an animation to switch pages
+    {
+        monsterList[activeCollectionPage].SetActive(false);
+        pagination[activeCollectionPage].sprite = inactivePage;
+        activeCollectionPage++;
+        monsterList[activeCollectionPage].SetActive(true);
+        pagination[activeCollectionPage].sprite = activePage;
+        if (activeCollectionPage == maxPage)
+        {
+            nextPageButton.interactable = false;
+        }
+        else if (monsterList[activeCollectionPage + 1].transform.childCount == 0)
+        {
+            nextPageButton.interactable = false;
+        }
+        else
+        {
+            nextPageButton.interactable = true;
+        }
+
+        previousPageButton.interactable = true;
+    }
+
+    public void PreviousPage()
+    {
+        monsterList[activeCollectionPage].SetActive(false);
+        pagination[activeCollectionPage].sprite = inactivePage;
+        activeCollectionPage--;
+        monsterList[activeCollectionPage].SetActive(true);
+        pagination[activeCollectionPage].sprite = activePage;
+
+        if (activeCollectionPage == 0)
+        {
+            previousPageButton.interactable = false;
+        }
+        else
+        {
+            previousPageButton.interactable = true;
+        }
+
+        nextPageButton.interactable = true;
     }
 
     public void MonsterAction(Sprite image, string monster)
@@ -140,14 +229,28 @@ public class MonsterManageScreen : MonoBehaviour {
         {
             breeding.CancelBreeding();
         }
+
+        foreach (GameObject page in monsterList)
+        {
+            page.SetActive(false);
+        }
+        monsterList[0].SetActive(true);
+        activeCollectionPage = 0;
+        foreach (Image paginationImage in pagination)
+        {
+            paginationImage.sprite = inactivePage;
+        }
+        pagination[0].sprite = activePage;
     }
 
     public void ResetList()
     {
-
-        for (int i = 0; i < monsterList.transform.childCount; i++)
+        foreach (GameObject page in monsterList)
         {
-            monsterList.transform.GetChild(i).gameObject.SetActive(false);
+            for (int i = 0; i < page.transform.childCount; i++)
+            {
+                page.transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
 
         monsterListPopulated = false;

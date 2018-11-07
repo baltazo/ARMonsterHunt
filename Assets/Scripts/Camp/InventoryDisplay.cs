@@ -28,11 +28,11 @@ public class InventoryDisplay : MonoBehaviour {
             if (numberOfPieces >= 10)
             {
                 inventoryPiecesButton[i].interactable = true;
-                inventoryTabAlert[i].color = Color.green;
+                inventoryTabAlert[i].color = Color.white;
             }
             else
             {
-                inventoryTabAlert[i].color = Color.white;
+                inventoryTabAlert[i].color = Color.grey;
             }
         }
     }
@@ -51,7 +51,7 @@ public class InventoryDisplay : MonoBehaviour {
         if (numberOfPieces < 10)
         {
             inventoryPiecesButton[category].interactable = false;
-            inventoryTabAlert[category].color = Color.white;
+            inventoryTabAlert[category].color = Color.grey;
         }
 
         Inventory.sharedInstance.inventoryPieces[category] = numberOfPieces;
