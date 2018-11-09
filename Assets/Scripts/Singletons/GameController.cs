@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour {
     private void Start()
     {
         timeToLoad = new WaitForSeconds(1);
+
     }
 
     private void Update()

@@ -215,7 +215,7 @@ public class MonsterManageScreen : MonoBehaviour {
         }
         else if (activeScreen == "Fighting")
         {
-            fighting.ChooseMonsterToFight(monster);
+            fighting.ChooseMonsterToFight( image, monster);
         }
 
         

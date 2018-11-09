@@ -7,17 +7,21 @@ public class BattleManager : MonoBehaviour {
     private GameObject playerMonsterPrefab;
     private Monster playerMonster;
     private int playerLife;
+    private int playerMaxLife;
     private int playerStrength;
     private int playerIntel;
     private Animator playerAnimator;
+    private Health playerHealth;
 
     private GameObject enemyMonsterPrefab;
     private Monster enemyMonster;
     private int difficulty;
     private int enemyLife;
+    private int enemyMaxLife;
     private int enemyIntel;
     private int enemyStrength;
     private Animator enemyAnimator;
+    private Health enemyHealth;
 
     [SerializeField] private int lifeMultiplier = 10;
 
@@ -29,11 +33,13 @@ public class BattleManager : MonoBehaviour {
     private WaitForSeconds waitAttack = new WaitForSeconds(1.5f);
 
     private bool playerAttacking;
+    private bool fightOver = false;
 
 	// Use this for initialization
 	void Start () {
         playerMonster = MonsterCollector.sharedInstance.monsterToFight;
         playerLife = playerMonster.Life * lifeMultiplier;
+        playerMaxLife = playerLife;
         playerIntel = playerMonster.Intelligence;
         playerStrength = playerMonster.Strength;
         difficulty = MonsterCollector.sharedInstance.difficulty;
@@ -98,6 +104,7 @@ public class BattleManager : MonoBehaviour {
         enemyMonster = new Monster("Enemy Monster", "", _str, _intel, _life);
 
         enemyLife = _life * lifeMultiplier;
+        enemyMaxLife = enemyLife;
         enemyStrength = _str;
         enemyIntel = _intel;
 
@@ -115,6 +122,9 @@ public class BattleManager : MonoBehaviour {
 
         playerAnimator = playerMonsterPrefab.GetComponent<Animator>();
         enemyAnimator = enemyMonsterPrefab.GetComponent<Animator>();
+
+        playerHealth = playerMonsterPrefab.transform.GetChild(0).GetComponent<Health>();
+        enemyHealth = enemyMonsterPrefab.transform.GetChild(0).GetComponent<Health>();
 
         if (playerIntel >= enemyIntel)
         {
@@ -154,17 +164,62 @@ public class BattleManager : MonoBehaviour {
             // The player attacks the monster
             enemyAnimator.SetTrigger("Damage");
             playerAttacking = false;
+
+            // Damages the enemy
+            enemyLife -= playerStrength;
+
+            Debug.Log("Remaining enemy life: " + enemyLife + " / " + enemyMaxLife);
+
+            if (enemyLife <= 0)
+            {
+                enemyAnimator.SetTrigger("Die");
+                fightOver = true;
+                enemyHealth.NoMoreLife();
+                return;
+            }
+
+            float temp = (float)enemyLife / enemyMaxLife;
+
+            int lifeLevel = Mathf.RoundToInt((1 - temp) * 10); 
+            Debug.Log("Life sprite to use is: " + lifeLevel);
+            enemyHealth.UpdateHealthBar(lifeLevel);
+
         }
         else
         {
             // The monster attacks the player
             playerAnimator.SetTrigger("Damage");
             playerAttacking = true;
+
+            //Damages the player
+            playerLife -= enemyStrength;
+
+
+
+            if (playerLife <= 0)
+            {
+                playerAnimator.SetTrigger("Die");
+                fightOver = true;
+                playerHealth.NoMoreLife();
+                return;
+            }
+
+            float temp = (float)playerLife / playerMaxLife;
+            Debug.Log(temp);
+
+            int lifeLevel = Mathf.RoundToInt((1 - temp) * 10);
+            Debug.Log("Life sprite to use is: " + lifeLevel);
+            playerHealth.UpdateHealthBar(lifeLevel);
         }
     }
 
     public void DoneAttacking()
     {
+
+        if (fightOver)
+        {
+            return;
+        }
         //Done attacking, next turn
         Debug.Log("Done attacking");
         StartCoroutine(Fight(waitAttack));

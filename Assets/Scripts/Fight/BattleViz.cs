@@ -107,6 +107,9 @@ public class BattleViz : MonoBehaviour {
                 // Create an anchor to allow ARCore to track the hitpoint as understanding of the physical world evolves.
                 Anchor anchor = hit.Trackable.CreateAnchor(hit.Pose);
 
+                enemy.transform.GetChild(0).gameObject.GetComponent<Health>().ToggleHealthDisplay();
+                monster.transform.GetChild(0).gameObject.GetComponent<Health>().ToggleHealthDisplay();
+
                 // Make model a child of the anchor.
                 arena.transform.parent = anchor.transform;
                 hasAppeared = true;

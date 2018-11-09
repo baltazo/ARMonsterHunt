@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Fighting : MonoBehaviour {
 
     public GameObject fightMonsterPanel;
+    public Image fightMonsterImage;
 
     private string chosenMonster;
 
-	public void ChooseMonsterToFight(string monsterName)
+	public void ChooseMonsterToFight(Sprite image, string monsterName)
     {
         chosenMonster = monsterName;
+        fightMonsterImage.sprite = image;
         ShowHideFightViewPanel();
     }
 

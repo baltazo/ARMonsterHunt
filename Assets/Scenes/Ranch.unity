@@ -15600,6 +15600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fightMonsterPanel: {fileID: 481181340}
+  fightMonsterImage: {fileID: 2098047110}
 --- !u!1 &1838410276
 GameObject:
   m_ObjectHideFlags: 0
